@@ -48,6 +48,37 @@ namespace libvirt
 
         public string Xml => GetString(() => Libvirt.virDomainGetXMLDesc(_ptrDomain));
 
+        // attach some defined devices to your domain
+        public void AttachDeviceFlags(string xml, uint flags)
+        {
+            if (_ptrDomain == IntPtr.Zero)
+            {
+                throw new ArgumentNullException(nameof(_ptrDomain));
+            }
+
+            var result = Libvirt.virDomainAttachDeviceFlags(_ptrDomain, xml, flags);
+
+            if (result == -1)
+            {
+                throw new Exception("Device flags cannot be attached");
+            }
+        }
+
+        public void Create()
+        {
+            if (_ptrDomain == IntPtr.Zero)
+            {
+                throw new ArgumentNullException(nameof(_ptrDomain));
+            }
+
+            int result = Libvirt.virDomainCreate(_ptrDomain);
+
+            if (result == -1)
+            {
+                throw new Exception("Domain cannot be created");
+            }
+        }
+
         public virDomainInfo Info 
         {
             get

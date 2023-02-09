@@ -87,6 +87,33 @@ namespace libvirt
             return new Domain(_conn, result);
         }
 
+        public Pool CreatePool(string xml, uint flags)
+        {
+            IntPtr result = Libvirt.virStoragePoolCreateXML(_conn, xml, flags);
+
+            ThrowExceptionOnError(result);
+
+            return new Pool(_conn, result, flags);
+        }
+
+        public Domain DefineDomain(string xml)
+        {
+            IntPtr result = Libvirt.virDomainDefineXML(_conn, xml);
+
+            ThrowExceptionOnError(result);
+
+            return new Domain(_conn, result);
+        }
+
+        public Pool DefinePool(string xml, uint flags)
+        {
+            IntPtr result = Libvirt.virStoragePoolDefineXML(_conn, xml, flags);
+
+            ThrowExceptionOnError(result);
+
+            return new Pool(_conn, result, flags);
+        }
+
         public void RestoreDomain(string file) => ThrowExceptionOnError(Libvirt.virDomainRestore(_conn, file));
 
         public string Capabilities => GetString(() => Libvirt.virConnectGetCapabilities(_conn));

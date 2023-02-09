@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>libvirt-csharp</AssemblyName>
     <Version>0.0.1-alpha2</Version>
     <SignAssembly>true</SignAssembly>
